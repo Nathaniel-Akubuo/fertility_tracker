@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "388847026096",
+    "project_id": "mumhealth-pf-tracker",
+    "storage_bucket": "mumhealth-pf-tracker.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:388847026096:android:89ec9b087509faf0556075",
+        "android_client_info": {
+          "package_name": "com.mumhealth.fertility_tracker"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "388847026096-d5296n8934pc6kdb4jmarm6jrtldlo5l.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mumhealth.fertility_tracker",
+            "certificate_hash": "f807e0055f7b35d0b204cdfba24783d89b1287d8"
+          }
+        },
+        {
+          "client_id": "388847026096-rn6v30r05klftpkjiuubdm59qqmnn89k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyArASZC8ad-Y_zFWaoBOI0oTyi4_6Z4qpc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "388847026096-rn6v30r05klftpkjiuubdm59qqmnn89k.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
