@@ -7,6 +7,9 @@ class UserModel {
   int? averageNumberOfDays;
   UserMode? userMode;
   Timestamp? lmp;
+  Timestamp? dueDate;
+  Timestamp? ovulationDate;
+  Timestamp? nextPeriod;
 
   UserModel({
     this.name,
@@ -15,6 +18,9 @@ class UserModel {
     this.averageNumberOfDays,
     this.userMode,
     this.lmp,
+    this.dueDate,
+    this.ovulationDate,
+    this.nextPeriod,
   });
 
   Map<String, dynamic> toMap() => {
@@ -23,16 +29,22 @@ class UserModel {
         'averageCycleLength': averageCycleLength,
         'averageNumberOfDays': averageNumberOfDays,
         'userMode': _userModeToString(userMode),
-        'lmp': lmp?.toDate().toString(),
+        'lmp': lmp,
+        'dueDate': dueDate,
+        'ovulationDate': ovulationDate,
+        'nextPeriod': nextPeriod,
       };
 
   factory UserModel.fromMap(Map<String, dynamic> map) => UserModel(
-        name: map['name'] as String,
-        uid: map['uid'] as String,
-        averageCycleLength: map['averageCycleLength'] as int,
-        averageNumberOfDays: map['averageNumberOfDays'] as int,
+        name: map['name'],
+        uid: map['uid'],
+        averageCycleLength: map['averageCycleLength'],
+        averageNumberOfDays: map['averageNumberOfDays'],
         userMode: _stringToUserMode(map['userMode']),
-        lmp: map['lmp'] as Timestamp,
+        lmp: map['lmp'],
+        dueDate: map['dueDate'],
+        ovulationDate: map['ovulationDate'],
+        nextPeriod: map['nextPeriod'],
       );
 }
 

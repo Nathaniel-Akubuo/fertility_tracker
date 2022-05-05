@@ -1,3 +1,4 @@
+import 'package:dot_navigation_bar/dot_navigation_bar.dart';
 import 'package:fertility_tracker/constants/styles.dart';
 import 'package:fertility_tracker/ui/bottom_nav/bottom_nav_viewmodel.dart';
 import 'package:flutter/material.dart';
@@ -11,29 +12,47 @@ class BottomNavView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ViewModelBuilder<BottomNavViewModel>.reactive(
       builder: (context, model, child) => Scaffold(
-        body: IndexedStack(index: model.currentIndex, children: model.pages),
-        bottomNavigationBar: BottomNavigationBar(
+        appBar: AppBar(
           backgroundColor: Colors.white,
-          type: BottomNavigationBarType.fixed,
-          elevation: 0,
-          selectedItemColor: kGreen,
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text('Good morning',
+                      style: kSubtitleTextStyle.copyWith(fontSize: 12)),
+                  Text('Jane Doe',
+                      style: kSubtitleTextStyle.copyWith(
+                          fontWeight: FontWeight.bold, fontSize: 16)),
+                ],
+              ),
+              Image.asset('assets/logo.png', height: 30),
+            ],
+          ),
+        ),
+
+        extendBody: true,
+        body: IndexedStack(index: model.currentIndex, children: model.pages),
+        bottomNavigationBar: DotNavigationBar(
+          backgroundColor: kRed,
+          selectedItemColor: Colors.white,
           currentIndex: model.currentIndex,
-          unselectedItemColor: Colors.grey,
-          showSelectedLabels: true,
-          onTap: model.setIndex,
-          items: const [
-            BottomNavigationBarItem(
-                icon: Icon(IconlyLight.calendar),
-                activeIcon: Icon(IconlyBold.calendar),
-                label: 'Period'),
-            BottomNavigationBarItem(
-                icon: Icon(IconlyLight.home),
-                activeIcon: Icon(IconlyBold.home),
-                label: 'Pregnancy'),
-            BottomNavigationBarItem(
-                icon: Icon(IconlyLight.profile),
-                activeIcon: Icon(IconlyBold.profile),
-                label: 'Fertility'),
+          unselectedItemColor: Colors.white,
+          onTap: (value) => model.setIndex(value),
+          paddingR: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+          enablePaddingAnimation: false,
+          itemPadding: const EdgeInsets.symmetric(vertical: 10, horizontal: 8),
+          items: [
+            DotNavigationBarItem(
+              icon: const Icon(IconlyLight.calendar),
+            ),
+            DotNavigationBarItem(
+              icon: const Icon(IconlyLight.home),
+            ),
+            DotNavigationBarItem(
+              icon: Icon(IconlyLight.profile),
+            ),
           ],
         ),
       ),

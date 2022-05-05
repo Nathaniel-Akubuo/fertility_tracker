@@ -46,6 +46,7 @@ class RegisterViewModel extends BaseViewModel {
       mode: userMode,
       cycleLength: int.parse(cycleLength),
       lmp: _lmp,
+      averageNumberOfDays: int.parse(averagePeriodLength),
     );
     setBusy(false);
   }

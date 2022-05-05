@@ -8,7 +8,6 @@ import '../app/app.locator.dart';
 
 class AuthService {
   final _firebaseAuth = FirebaseAuth.instance;
-
   final _navigationService = locator<NavigationService>();
   final _users = FirebaseFirestore.instance.collection('users');
 
@@ -23,6 +22,7 @@ class AuthService {
     required String password,
     required UserMode mode,
     required int cycleLength,
+    required int averageNumberOfDays,
     required DateTime? lmp,
   }) async {
     final result = await _firebaseAuth.createUserWithEmailAndPassword(
@@ -34,9 +34,14 @@ class AuthService {
         averageCycleLength: cycleLength,
         uid: result.user!.uid,
         lmp: lmp == null ? null : Timestamp.fromDate(lmp),
+        averageNumberOfDays: averageNumberOfDays,
+
       );
       await _users.doc(user.uid).set(user.toMap());
       _navigationService.navigateTo(Routes.bottomNavView);
     }
   }
+
+
+
 }
