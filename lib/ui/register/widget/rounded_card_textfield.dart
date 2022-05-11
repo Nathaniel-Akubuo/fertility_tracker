@@ -11,7 +11,7 @@ class RoundedCardTextField extends StatelessWidget {
   final bool readOnly;
   final TextEditingController? controller;
   final TextInputAction? textInputAction;
-
+  final bool obscureText;
 
   const RoundedCardTextField({
     Key? key,
@@ -22,38 +22,45 @@ class RoundedCardTextField extends StatelessWidget {
     this.initialValue,
     this.readOnly = false,
     this.controller,
-    this.textInputAction
+    this.textInputAction,
+    this.obscureText = false,
   }) : super(key: key);
+
+  const RoundedCardTextField.password(
+      {Key? key,
+      this.controller,
+      this.onChanged,
+      this.textInputAction,
+      this.obscureText = true,
+      this.validator,
+      this.initialValue,
+      this.onTap,
+      this.readOnly = false,
+      required this.hint})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      child: Padding(
-        padding: const EdgeInsets.only(left: 8),
-        child: TextFormField(
-          controller: controller,
-          initialValue: initialValue,
-          maxLines: null,
-          onTap: onTap,
-          readOnly: readOnly,
-          onChanged: onChanged,
-          cursorColor: kGreen,
-          validator: validator,
-          textInputAction: textInputAction,
-          decoration: InputDecoration(
-            border: InputBorder.none,
-            hintText: hint,
-            hintStyle: kSubtitleTextStyle.copyWith(color: Colors.grey),
-          ),
-        ),
-      ),
-      elevation: 2,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.only(
-          bottomLeft: Radius.circular(30),
-          topLeft: Radius.circular(4),
-          topRight: Radius.circular(4),
-          bottomRight: Radius.circular(4),
+    return Padding(
+      padding: const EdgeInsets.only(left: 8),
+      child: TextFormField(
+        controller: controller,
+        initialValue: initialValue,
+        onTap: onTap,
+        readOnly: readOnly,
+        onChanged: onChanged,
+        cursorColor: kRed,
+        validator: validator,
+        textInputAction: textInputAction,
+        obscureText: obscureText,
+        decoration: InputDecoration(
+          border: const UnderlineInputBorder(),
+          hintText: hint,
+          hintStyle: kSubtitleTextStyle.copyWith(color: Colors.grey),
+          enabledBorder: const UnderlineInputBorder(
+              borderSide: BorderSide(color: Colors.grey)),
+          focusedBorder: const UnderlineInputBorder(
+              borderSide: BorderSide(color: Colors.black)),
         ),
       ),
     );

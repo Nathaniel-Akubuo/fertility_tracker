@@ -2,7 +2,6 @@ import 'package:dot_navigation_bar/dot_navigation_bar.dart';
 import 'package:fertility_tracker/constants/styles.dart';
 import 'package:fertility_tracker/ui/bottom_nav/bottom_nav_viewmodel.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:stacked/stacked.dart';
 
 class BottomNavView extends StatelessWidget {
@@ -31,7 +30,6 @@ class BottomNavView extends StatelessWidget {
             ],
           ),
         ),
-
         extendBody: true,
         body: IndexedStack(index: model.currentIndex, children: model.pages),
         bottomNavigationBar: DotNavigationBar(
@@ -45,13 +43,12 @@ class BottomNavView extends StatelessWidget {
           itemPadding: const EdgeInsets.symmetric(vertical: 10, horizontal: 8),
           items: [
             DotNavigationBarItem(
-              icon: const Icon(IconlyLight.calendar),
+              icon: Image.asset('assets/menstrual-cycle.png',
+                  color: Colors.white, height: 25),
             ),
             DotNavigationBarItem(
-              icon: const Icon(IconlyLight.home),
-            ),
-            DotNavigationBarItem(
-              icon: Icon(IconlyLight.profile),
+              icon: Image.asset('assets/fetus.png',
+                  color: Colors.white, height: 25),
             ),
           ],
         ),

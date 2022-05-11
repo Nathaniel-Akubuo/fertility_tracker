@@ -4,5 +4,5 @@ import 'package:flutter/cupertino.dart';
 import 'package:stacked/stacked.dart';
 
 class BottomNavViewModel extends IndexTrackingViewModel {
-  List<Widget> pages = [const PeriodTrackerView(), const PregnancyView(), Column()];
+  List<Widget> pages = [const PeriodTrackerView(), const PregnancyView()];
 }

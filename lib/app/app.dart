@@ -1,5 +1,6 @@
 import 'package:fertility_tracker/services/auth_service.dart';
 import 'package:fertility_tracker/ui/bottom_nav/bottom_nav.dart';
+import 'package:fertility_tracker/ui/fertility_tracker/fertility_tracker.dart';
 import 'package:fertility_tracker/ui/login/login_view.dart';
 import 'package:fertility_tracker/ui/period_tracker/period_tracker.dart';
 import 'package:fertility_tracker/ui/pregnancy/pregnancy_view.dart';
@@ -19,6 +20,7 @@ import '../ui/pregnancy/widgets/pregnancy_details_widget.dart';
     CupertinoRoute(page: PregnancyView),
     CupertinoRoute(page: PregnancyDetails),
     CupertinoRoute(page: PeriodTrackerView),
+    CupertinoRoute(page: FertilityTrackerView),
   ],
   dependencies: [
     LazySingleton(classType: AuthService),

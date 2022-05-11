@@ -3,7 +3,10 @@ import 'package:flutter/material.dart';
 import '../../../constants/styles.dart';
 
 class PeriodPhaseCard extends StatelessWidget {
-  const PeriodPhaseCard({Key? key}) : super(key: key);
+  final String day;
+  final String phase;
+
+  const PeriodPhaseCard({Key? key, required this.day, required this.phase}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +20,9 @@ class PeriodPhaseCard extends StatelessWidget {
           height: size.width - 80,
           width: size.width - 80,
           decoration: BoxDecoration(
-            border: Border.all(color: kRed),
+            border: Border.all(
+              color: kRed.withOpacity(0.3),
+            ),
             borderRadius: BorderRadius.circular(2000),
           ),
           child: Padding(
@@ -26,20 +31,21 @@ class PeriodPhaseCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 verticalSpaceRegular,
-                const Icon(Icons.female, color: kRed, size: 40),
+                const Icon(Icons.female, color: kBlack, size: 40),
                 verticalSpaceRegular,
                 Text(
-                  'Lutheal Phase',
+                  phase,
                   style: kSubtitleTextStyle.copyWith(
                       color: Colors.grey[700], fontSize: 22),
                 ),
                 verticalSpaceRegular,
                 Text(
                   'day',
-                  style: kSubtitleTextStyle.copyWith(fontWeight: FontWeight.bold),
+                  style:
+                      kSubtitleTextStyle.copyWith(fontWeight: FontWeight.bold),
                 ),
                 Text(
-                  '24',
+                  day,
                   style: kSubtitleTextStyle.copyWith(
                     fontSize: 32,
                     fontWeight: FontWeight.bold,

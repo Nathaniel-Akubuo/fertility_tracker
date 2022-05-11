@@ -39,15 +39,16 @@ class _RegisterViewState extends State<RegisterView> {
       duration: const Duration(milliseconds: 500),
       curve: Curves.easeIn,
     );
+    FocusManager.instance.primaryFocus?.unfocus();
   }
 
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<RegisterViewModel>.reactive(
       builder: (context, model, child) => Scaffold(
-        backgroundColor: kPurple,
+        backgroundColor: Colors.white,
         appBar: AppBar(
-          backgroundColor: kPurple,
+          backgroundColor: Colors.white,
           elevation: 0,
         ),
         body: Padding(
@@ -57,6 +58,7 @@ class _RegisterViewState extends State<RegisterView> {
             children: [
               PageView(
                 controller: controller,
+                physics: const NeverScrollableScrollPhysics(),
                 children: [
                   Column(
                     children: [
@@ -65,15 +67,13 @@ class _RegisterViewState extends State<RegisterView> {
                       Text(
                         'Register',
                         style: kSubtitleTextStyle.copyWith(
-                            color: Colors.white,
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold),
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                       Text(
                         'Enter your email and set a password',
-                        style: kSubtitleTextStyle.copyWith(
-                          color: Colors.white,
-                        ),
+                        style: kSubtitleTextStyle,
                       ),
                       verticalSpaceMedium,
                       RoundedCardTextField(
@@ -82,12 +82,13 @@ class _RegisterViewState extends State<RegisterView> {
                         textInputAction: TextInputAction.next,
                       ),
                       verticalSpaceRegular,
-                      RoundedCardTextField(
+                      RoundedCardTextField.password(
                         hint: 'Password',
                         onChanged: (v) => model.password = v,
                       ),
                       verticalSpaceLarge,
                       GreenRoundedButton(
+                        color: kRed,
                         text: 'Next',
                         onPressed: () {
                           if (emailRegExp.hasMatch(model.email) &&
@@ -108,7 +109,6 @@ class _RegisterViewState extends State<RegisterView> {
                         'What would you like to use this application for?',
                         textAlign: TextAlign.center,
                         style: kSubtitleTextStyle.copyWith(
-                          color: Colors.white,
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
                         ),
@@ -118,11 +118,10 @@ class _RegisterViewState extends State<RegisterView> {
                         diameter: 70,
                         onTap: () => model.setUserMode(UserMode.period),
                         color: model.userMode == UserMode.period
-                            ? kGreen
-                            : Colors.white,
-                        child: Icon(
-                          FontAwesomeIcons.personPregnant,
-                          size: 35,
+                            ? kRed
+                            : Colors.grey[300],
+                        child: Image.asset(
+                          'assets/sanitary-pad.png',
                           color: model.userMode == UserMode.period
                               ? Colors.white
                               : Colors.black,
@@ -131,41 +130,35 @@ class _RegisterViewState extends State<RegisterView> {
                       verticalSpaceTiny,
                       Text(
                         'Track periods',
-                        style: kSubtitleTextStyle.copyWith(
-                          color: Colors.white,
-                          fontSize: 16,
-                        ),
+                        style: kSubtitleTextStyle.copyWith(fontSize: 16),
                       ),
                       verticalSpaceMedium,
                       CircularButton(
                         diameter: 70,
                         onTap: () => model.setUserMode(UserMode.fertility),
                         color: model.userMode == UserMode.fertility
-                            ? kGreen
-                            : Colors.white,
-                        child: Icon(
-                          FontAwesomeIcons.personPregnant,
+                            ? kRed
+                            : Colors.grey[300],
+                        child: Image.asset(
+                          'assets/menstrual-cycle.png',
                           color: model.userMode == UserMode.fertility
                               ? Colors.white
                               : Colors.black,
-                          size: 35,
+                          height: 35,
                         ),
                       ),
                       verticalSpaceTiny,
                       Text(
                         'Track ovulation',
-                        style: kSubtitleTextStyle.copyWith(
-                          color: Colors.white,
-                          fontSize: 16,
-                        ),
+                        style: kSubtitleTextStyle.copyWith(fontSize: 16),
                       ),
                       verticalSpaceMedium,
                       CircularButton(
                         diameter: 70,
                         onTap: () => model.setUserMode(UserMode.pregnancy),
                         color: model.userMode == UserMode.pregnancy
-                            ? kGreen
-                            : Colors.white,
+                            ? kRed
+                            : Colors.grey[300],
                         child: Icon(
                           FontAwesomeIcons.personPregnant,
                           color: model.userMode == UserMode.pregnancy
@@ -177,13 +170,11 @@ class _RegisterViewState extends State<RegisterView> {
                       verticalSpaceTiny,
                       Text(
                         'Track pregnancy week by week',
-                        style: kSubtitleTextStyle.copyWith(
-                          color: Colors.white,
-                          fontSize: 16,
-                        ),
+                        style: kSubtitleTextStyle.copyWith(fontSize: 16),
                       ),
                       verticalSpaceLarge,
                       GreenRoundedButton(
+                        color: kRed,
                         text: 'Next',
                         isLoading: model.isBusy,
                         onPressed: animateToPage,
@@ -196,27 +187,25 @@ class _RegisterViewState extends State<RegisterView> {
                         'Almost there',
                         textAlign: TextAlign.center,
                         style: kSubtitleTextStyle.copyWith(
-                          color: Colors.white,
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                       verticalSpaceSmall,
-                      Text('We just need to know a few things about you',
-                          style:
-                              kSubtitleTextStyle.copyWith(color: Colors.white)),
+                      Text(
+                        'We just need to know a few things about you',
+                        style: kSubtitleTextStyle,
+                      ),
                       verticalSpaceLarge,
                       RoundedCardTextField(
                         hint: 'Cycle length',
                         onChanged: (v) => model.cycleLength = v,
                         textInputAction: TextInputAction.next,
-
                       ),
                       verticalSpaceRegular,
                       RoundedCardTextField(
                         hint: 'Average period length',
                         textInputAction: TextInputAction.next,
-
                         onChanged: (v) => model.averagePeriodLength = v,
                       ),
                       verticalSpaceRegular,
@@ -228,6 +217,7 @@ class _RegisterViewState extends State<RegisterView> {
                       ),
                       verticalSpaceLarge,
                       GreenRoundedButton(
+                        color: kRed,
                         text: 'Register',
                         isLoading: model.isBusy,
                         onPressed: model.register,
@@ -242,8 +232,8 @@ class _RegisterViewState extends State<RegisterView> {
                   controller: controller,
                   count: 3,
                   effect: const WormEffect(
-                    dotColor: Colors.white,
-                    activeDotColor: kGreen,
+                    dotColor: Colors.grey,
+                    activeDotColor: kRed,
                     dotHeight: 10,
                     dotWidth: 10,
                   ),

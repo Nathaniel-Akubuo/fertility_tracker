@@ -33,7 +33,13 @@ const kRedSwatch = MaterialColor(
 TextStyle kTitleTextStyle = GoogleFonts.poppins(
     color: kTextColor, fontSize: 28, fontWeight: FontWeight.w600);
 TextStyle kSubtitleTextStyle =
-GoogleFonts.poppins(color: kTextColor, fontSize: 14);
+    GoogleFonts.poppins(color: kTextColor, fontSize: 14);
+TextStyle kMediumTextStyle = GoogleFonts.poppins(
+  color: kTextColor,
+  fontSize: 14,
+  textStyle: const TextStyle(),
+  fontWeight: FontWeight.w500
+);
 
 TextStyle kAppBarTextStyle = kSubtitleTextStyle.copyWith(
     fontSize: 18, fontWeight: FontWeight.w600, color: kWhite);
@@ -48,7 +54,8 @@ const k16pxPadding = EdgeInsets.symmetric(horizontal: 16, vertical: 16);
 
 // DECORATIONS
 const kRoundedTopBorder = BorderRadius.vertical(top: Radius.circular(24));
-const k8pxRoundedBottomBorder = BorderRadius.vertical(bottom: Radius.circular(8));
+const k8pxRoundedBottomBorder =
+    BorderRadius.vertical(bottom: Radius.circular(8));
 const k32pxBorderRadius = BorderRadius.all(Radius.circular(32));
 const k24pxBorderRadius = BorderRadius.all(Radius.circular(24));
 const k16pxBorderRadius = BorderRadius.all(Radius.circular(16));
