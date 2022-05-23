@@ -11,6 +11,7 @@ import 'package:stacked/stacked_annotations.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 import '../services/auth_service.dart';
+import '../services/custom_dialog_service.dart';
 import '../services/local_storage_services.dart';
 
 final locator = StackedLocator.instance;
@@ -24,6 +25,7 @@ Future setupLocator(
 // Register dependencies
   locator.registerLazySingleton(() => AuthService());
   locator.registerLazySingleton(() => NavigationService());
+  locator.registerLazySingleton(() => CustomDialogService());
   final sharedPreferenceLocalStorage =
       await SharedPreferenceLocalStorage.getInstance();
   locator.registerSingleton(sharedPreferenceLocalStorage);

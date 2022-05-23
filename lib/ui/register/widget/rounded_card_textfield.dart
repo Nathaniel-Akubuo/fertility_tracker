@@ -12,6 +12,7 @@ class RoundedCardTextField extends StatelessWidget {
   final TextEditingController? controller;
   final TextInputAction? textInputAction;
   final bool obscureText;
+  final TextInputType? keyboardType;
 
   const RoundedCardTextField({
     Key? key,
@@ -24,20 +25,22 @@ class RoundedCardTextField extends StatelessWidget {
     this.controller,
     this.textInputAction,
     this.obscureText = false,
+    this.keyboardType,
   }) : super(key: key);
 
-  const RoundedCardTextField.password(
-      {Key? key,
-      this.controller,
-      this.onChanged,
-      this.textInputAction,
-      this.obscureText = true,
-      this.validator,
-      this.initialValue,
-      this.onTap,
-      this.readOnly = false,
-      required this.hint})
-      : super(key: key);
+  const RoundedCardTextField.password({
+    Key? key,
+    this.controller,
+    this.onChanged,
+    this.textInputAction,
+    this.obscureText = true,
+    this.validator,
+    this.initialValue,
+    this.onTap,
+    this.readOnly = false,
+    required this.hint,
+    this.keyboardType,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -45,9 +48,11 @@ class RoundedCardTextField extends StatelessWidget {
       padding: const EdgeInsets.only(left: 8),
       child: TextFormField(
         controller: controller,
+        keyboardType: keyboardType,
         initialValue: initialValue,
         onTap: onTap,
         readOnly: readOnly,
+        style: kSubtitleTextStyle.copyWith(fontSize: 16),
         onChanged: onChanged,
         cursorColor: kRed,
         validator: validator,

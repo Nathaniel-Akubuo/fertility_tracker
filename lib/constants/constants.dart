@@ -876,3 +876,24 @@ var pregnancyDetailsList = [
     ],
   ),
 ];
+
+String formatDate(DateTime date) =>
+    DateFormat("MMMM d'${_getDayOfMonthSuffix(date)}', yyyy").format(date);
+
+String _getDayOfMonthSuffix(DateTime date) {
+  var dayNum = date.day;
+  if (dayNum >= 11 && dayNum <= 13) {
+    return 'th';
+  }
+
+  switch (dayNum % 10) {
+    case 1:
+      return 'st';
+    case 2:
+      return 'nd';
+    case 3:
+      return 'rd';
+    default:
+      return 'th';
+  }
+}

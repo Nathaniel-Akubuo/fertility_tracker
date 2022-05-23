@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class UserModel {
   String? name;
+  String? email;
   String? uid;
   int? averageCycleLength;
   int? averageNumberOfDays;
@@ -10,9 +11,11 @@ class UserModel {
   Timestamp? dueDate;
   Timestamp? ovulationDate;
   Timestamp? nextPeriod;
+  Timestamp? dateCreated;
 
   UserModel({
     this.name,
+    this.email,
     this.uid,
     this.averageCycleLength,
     this.averageNumberOfDays,
@@ -21,10 +24,12 @@ class UserModel {
     this.dueDate,
     this.ovulationDate,
     this.nextPeriod,
+    this.dateCreated,
   });
 
   Map<String, dynamic> toMap() => {
         'name': name,
+        'email': email,
         'uid': uid,
         'averageCycleLength': averageCycleLength,
         'averageNumberOfDays': averageNumberOfDays,
@@ -33,10 +38,12 @@ class UserModel {
         'dueDate': dueDate,
         'ovulationDate': ovulationDate,
         'nextPeriod': nextPeriod,
+        'dateCreated': dateCreated,
       };
 
   factory UserModel.fromMap(Map<String, dynamic> map) => UserModel(
         name: map['name'],
+        email: map['email'],
         uid: map['uid'],
         averageCycleLength: map['averageCycleLength'],
         averageNumberOfDays: map['averageNumberOfDays'],
@@ -45,6 +52,7 @@ class UserModel {
         dueDate: map['dueDate'],
         ovulationDate: map['ovulationDate'],
         nextPeriod: map['nextPeriod'],
+        dateCreated: map['dateCreated'],
       );
 }
 

@@ -13,6 +13,7 @@ import 'package:stacked/stacked_annotations.dart';
 
 import '../ui/bottom_nav/bottom_nav.dart';
 import '../ui/fertility_tracker/fertility_tracker.dart';
+import '../ui/login/forgot_password.dart';
 import '../ui/login/login_view.dart';
 import '../ui/period_tracker/period_tracker.dart';
 import '../ui/pregnancy/pregnancy_view.dart';
@@ -27,6 +28,7 @@ class Routes {
   static const String pregnancyDetails = '/pregnancy-details';
   static const String periodTrackerView = '/period-tracker-view';
   static const String fertilityTrackerView = '/fertility-tracker-view';
+  static const String forgotPasswordView = '/forgot-password-view';
   static const all = <String>{
     registerView,
     loginView,
@@ -35,6 +37,7 @@ class Routes {
     pregnancyDetails,
     periodTrackerView,
     fertilityTrackerView,
+    forgotPasswordView,
   };
 }
 
@@ -49,6 +52,7 @@ class StackedRouter extends RouterBase {
     RouteDef(Routes.pregnancyDetails, page: PregnancyDetails),
     RouteDef(Routes.periodTrackerView, page: PeriodTrackerView),
     RouteDef(Routes.fertilityTrackerView, page: FertilityTrackerView),
+    RouteDef(Routes.forgotPasswordView, page: ForgotPasswordView),
   ];
   @override
   Map<Type, StackedRouteFactory> get pagesMap => _pagesMap;
@@ -96,6 +100,12 @@ class StackedRouter extends RouterBase {
     FertilityTrackerView: (data) {
       return CupertinoPageRoute<dynamic>(
         builder: (context) => const FertilityTrackerView(),
+        settings: data,
+      );
+    },
+    ForgotPasswordView: (data) {
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => const ForgotPasswordView(),
         settings: data,
       );
     },

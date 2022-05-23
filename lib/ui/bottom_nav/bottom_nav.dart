@@ -1,6 +1,7 @@
 import 'package:dot_navigation_bar/dot_navigation_bar.dart';
 import 'package:fertility_tracker/constants/styles.dart';
 import 'package:fertility_tracker/ui/bottom_nav/bottom_nav_viewmodel.dart';
+import 'package:fertility_tracker/widgets/progress_indicators/red_circular_progress_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
@@ -12,23 +13,38 @@ class BottomNavView extends StatelessWidget {
     return ViewModelBuilder<BottomNavViewModel>.reactive(
       builder: (context, model, child) => Scaffold(
         appBar: AppBar(
+          leading: Padding(
+            padding: const EdgeInsets.only(left: 14),
+            child: Image.asset('assets/logo.png', height: 30),
+          ),
+          centerTitle: false,
+          iconTheme: const IconThemeData(color: kRed),
           backgroundColor: Colors.white,
-          title: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          title: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text('Good morning',
-                      style: kSubtitleTextStyle.copyWith(fontSize: 12)),
-                  Text('Jane Doe',
-                      style: kSubtitleTextStyle.copyWith(
-                          fontWeight: FontWeight.bold, fontSize: 16)),
-                ],
-              ),
-              Image.asset('assets/logo.png', height: 30),
+              Text('Good morning',
+                  style: kSubtitleTextStyle.copyWith(fontSize: 12)),
+              Text(model.user.name ?? '',
+                  style: kSubtitleTextStyle.copyWith(
+                      fontWeight: FontWeight.bold, fontSize: 16)),
             ],
           ),
+          actions: [
+            Center(
+              child: model.isBusy
+                  ? const RedCircularProgressIndicator()
+                  : TextButton(
+                      child: Text('LOGOUT',
+                          style: kButtonTextStyle.copyWith(
+                            color: kRed,
+                            fontWeight: FontWeight.bold,
+                          )),
+                      onPressed: () => model.logout(context),
+                    ),
+            ),
+            const SizedBox(width: 16)
+          ],
         ),
         extendBody: true,
         body: IndexedStack(index: model.currentIndex, children: model.pages),

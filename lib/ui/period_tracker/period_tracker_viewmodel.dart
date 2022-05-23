@@ -38,7 +38,7 @@ class PeriodTrackerViewModel
     if (lmp == null || user.averageNumberOfDays == null) return '';
     var value = CalculationService.calculateNextPeriod(
       lmp.toDate(),
-      user.averageNumberOfDays!,
+      user.averageCycleLength!,
     );
     return groupSeparatorFormatter.format(value!);
   }
@@ -48,7 +48,7 @@ class PeriodTrackerViewModel
     if (lmp == null) return '';
     var value = CalculationService.calculateFertilityWindow(
       lmp.toDate(),
-      user.averageNumberOfDays!,
+      user.averageCycleLength!,
     );
     if (value == null) return '';
     var date = value.start;
@@ -60,7 +60,7 @@ class PeriodTrackerViewModel
     if (lmp == null) return '';
     var value = CalculationService.calculateFertilityWindow(
       lmp.toDate(),
-      user.averageNumberOfDays!,
+      user.averageCycleLength!,
     );
     if (value == null) return '';
     var date = value.end;
@@ -73,7 +73,7 @@ class PeriodTrackerViewModel
     var now = DateTime.now();
     var value = CalculationService.calculateFertilityWindow(
       lmp.toDate(),
-      user.averageNumberOfDays!,
+      user.averageCycleLength!,
     );
     if (value == null) return '';
     if (now.isAfter(value.start) && now.isBefore(value.end)) {
@@ -85,13 +85,15 @@ class PeriodTrackerViewModel
 
   String getPhase() {
     var lmp = user.lmp;
+
     if (lmp == null) return '';
     var now = DateTime.now();
     var currentDate = DateTime(now.year, now.month, now.day, 0, 0, 0, 0, 0);
     var ovulationDate = CalculationService.calculateOvulation(
       lmp.toDate(),
-      user.averageNumberOfDays!,
+      user.averageCycleLength!,
     );
+
     var lmpDate = lmp.toDate();
     var periodRange = DateTimeRange(start: lmpDate, end: ovulationDate!);
     if (ovulationDate == currentDate) {
