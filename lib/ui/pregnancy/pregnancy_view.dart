@@ -47,7 +47,14 @@ class PregnancyView extends StatelessWidget {
                                 borderRadius: k16pxBorderRadius,
                               ),
                               child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
+                                  verticalSpaceRegular,
+                                  IconButton(
+                                    padding: EdgeInsets.zero,
+                                    icon: const Icon(Icons.arrow_back_ios),
+                                    onPressed: () => model.setDate(),
+                                  ),
                                   verticalSpaceRegular,
                                   Row(
                                     children: [

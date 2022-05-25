@@ -20,17 +20,40 @@ class PregnancyViewModel extends StreamViewModel<DocumentSnapshot<UserModel>> {
     );
   }
 
+  bool edited = false;
+  DateTime? newLMP;
+
   int week() {
-    final now = DateTime.now();
-    if (user.lmp == null) return 1;
-    final difference = now.difference(user.lmp!.toDate());
-    var week = (difference.inDays / 7).floor();
-    if (week == 0) {
-      week = 1;
-    } else if (week > 39) {
-      week = 39;
+    if (edited) {
+      final now = DateTime.now();
+      if (newLMP == null) return 1;
+      final difference = now.difference(newLMP!);
+      var week = (difference.inDays / 7).floor();
+      if (week == 0) {
+        week = 1;
+      } else if (week > 39) {
+        week = 39;
+      }
+      return week;
+    } else {
+      final now = DateTime.now();
+      if (user.lmp == null) return 1;
+      final difference = now.difference(user.lmp!.toDate());
+      var week = (difference.inDays / 7).floor();
+      if (week == 0) {
+        week = 1;
+      } else if (week > 39) {
+        week = 39;
+      }
+      return week;
     }
-    return week;
+  }
+
+  Future<void> setDate() async {
+    edited = true;
+    var baseDate = newLMP ?? user.lmp!.toDate();
+    newLMP = baseDate.add(const Duration(days: 7));
+    notifyListeners();
   }
 
   DateTime dueDate(DateTime? lmp) {
@@ -51,7 +74,9 @@ class PregnancyViewModel extends StreamViewModel<DocumentSnapshot<UserModel>> {
   UserModel _data() {
     return data == null ? UserModel() : data!.data()!;
   }
+
   String get _uid => _auth.currentUser!.uid;
+
   UserModel get user => _data();
 
   String trimester() {
@@ -64,6 +89,4 @@ class PregnancyViewModel extends StreamViewModel<DocumentSnapshot<UserModel>> {
       return '3rd';
     }
   }
-
-
 }
