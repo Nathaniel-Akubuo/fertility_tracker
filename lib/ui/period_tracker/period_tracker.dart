@@ -30,7 +30,10 @@ class PeriodTrackerView extends StatelessWidget {
                       daysCount: 7,
                     ),
                     verticalSpaceMedium,
-                    PeriodPhaseCard(phase: model.getPhase(), day: model.day()),
+                    GestureDetector(
+                      onTap: model.navigateToDetails,
+
+                        child: PeriodPhaseCard(phase: model.getPhase(), day: model.day())),
                     verticalSpaceMedium,
                     CustomListTile(
                       text1: 'Chance of pregnancy',

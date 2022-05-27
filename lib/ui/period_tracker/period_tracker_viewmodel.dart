@@ -1,15 +1,20 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fertility_tracker/app/app.router.dart';
 import 'package:fertility_tracker/models/user_model.dart';
 import 'package:fertility_tracker/services/calculation_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:stacked/stacked.dart';
+import 'package:stacked_services/stacked_services.dart';
+
+import '../../app/app.locator.dart';
 
 class PeriodTrackerViewModel
     extends StreamViewModel<DocumentSnapshot<UserModel>> {
   final _auth = FirebaseAuth.instance;
   final _users = FirebaseFirestore.instance.collection('users');
+  final _navigationService = locator<NavigationService>();
 
   @override
   Stream<DocumentSnapshot<UserModel>> get stream => _users
@@ -23,6 +28,17 @@ class PeriodTrackerViewModel
   UserModel _data() {
     return data == null ? UserModel() : data!.data()!;
   }
+
+
+  void navigateToDetails() {
+    _navigationService.navigateTo(Routes.periodDetailsView);
+  }
+
+  bool edited = false;
+  DateTime? newLMP;
+
+
+
 
   String day() {
     var lmp = user.lmp;
@@ -42,6 +58,8 @@ class PeriodTrackerViewModel
     );
     return groupSeparatorFormatter.format(value!);
   }
+
+
 
   String fertilityStart() {
     var lmp = user.lmp;

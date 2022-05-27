@@ -3,6 +3,7 @@ import 'package:fertility_tracker/ui/bottom_nav/bottom_nav.dart';
 import 'package:fertility_tracker/ui/fertility_tracker/fertility_tracker.dart';
 import 'package:fertility_tracker/ui/login/forgot_password.dart';
 import 'package:fertility_tracker/ui/login/login_view.dart';
+import 'package:fertility_tracker/ui/period_tracker/details.dart';
 import 'package:fertility_tracker/ui/period_tracker/period_tracker.dart';
 import 'package:fertility_tracker/ui/pregnancy/pregnancy_view.dart';
 import 'package:fertility_tracker/ui/register/register_view.dart';
@@ -24,6 +25,7 @@ import '../ui/pregnancy/widgets/pregnancy_details_widget.dart';
     CupertinoRoute(page: PeriodTrackerView),
     CupertinoRoute(page: FertilityTrackerView),
     CupertinoRoute(page: ForgotPasswordView),
+    CupertinoRoute(page: PeriodDetailsView),
   ],
   dependencies: [
     LazySingleton(classType: AuthService),
