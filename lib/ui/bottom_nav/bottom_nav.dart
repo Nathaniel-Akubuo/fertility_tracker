@@ -23,7 +23,7 @@ class BottomNavView extends StatelessWidget {
           title: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Good morning',
+              Text('Hello',
                   style: kSubtitleTextStyle.copyWith(fontSize: 12)),
               Text(model.user.name ?? '',
                   style: kSubtitleTextStyle.copyWith(

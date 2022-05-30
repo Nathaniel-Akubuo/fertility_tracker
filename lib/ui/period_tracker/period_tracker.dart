@@ -1,4 +1,4 @@
-import 'package:date_picker_timeline/date_picker_widget.dart';
+import 'package:fertility_tracker/constants/constants.dart';
 import 'package:fertility_tracker/constants/styles.dart';
 import 'package:fertility_tracker/ui/period_tracker/period_tracker_viewmodel.dart';
 import 'package:fertility_tracker/ui/period_tracker/widgets/custom_list_tile.dart';
@@ -22,18 +22,13 @@ class PeriodTrackerView extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    DatePicker(
-                      DateTime.now(),
-                      selectionColor: kRed.withOpacity(0.05),
-                      selectedTextColor: Colors.black,
-                      initialSelectedDate: DateTime.now(),
-                      daysCount: 7,
-                    ),
-                    verticalSpaceMedium,
                     GestureDetector(
                       onTap: model.navigateToDetails,
-
-                        child: PeriodPhaseCard(phase: model.getPhase(), day: model.day())),
+                      child: PeriodPhaseCard(
+                        phase: model.getPhase(),
+                        day: model.daysLeft(),
+                      ),
+                    ),
                     verticalSpaceMedium,
                     CustomListTile(
                       text1: 'Chance of pregnancy',
@@ -59,69 +54,42 @@ class PeriodTrackerView extends StatelessWidget {
                     ),
                     verticalSpaceMedium,
                     verticalSpaceTiny,
-                    Text(
-                      'Insights',
-                      style: kSubtitleTextStyle.copyWith(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16,
-                      ),
-                    ),
-                    verticalSpaceTiny,
-                    Container(
-                      width: MediaQuery.of(context).size.width,
-                      padding: kMainPadding,
-                      decoration: BoxDecoration(
-                        color: kRed.withOpacity(0.05),
-                        borderRadius: k16pxBorderRadius,
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          verticalSpaceRegular,
-                          Text(
-                            'Average cycle length',
-                            style: kSubtitleTextStyle.copyWith(
-                              color: Colors.grey,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 13,
-                            ),
+                    Row(
+                      children: [
+                        Text(
+                          'Insights',
+                          style: kSubtitleTextStyle.copyWith(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
                           ),
-                          verticalSpaceMedium,
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: [
-                              Text(
-                                model.user.averageCycleLength.toString(),
-                                style: kSubtitleTextStyle.copyWith(
-                                  fontSize: 30,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              horizontalSpaceTiny,
-                              Padding(
-                                padding: const EdgeInsets.only(bottom: 5),
-                                child: Text('days', style: kSubtitleTextStyle),
-                              ),
-                            ],
-                          )
-                        ],
-                      ),
+                        ),
+                        Text(
+                          ' (Tap to edit)',
+                          style: kSubtitleTextStyle.copyWith(
+                            color: Colors.grey,
+                            fontSize: 14,
+                          ),
+                        ),
+                      ],
                     ),
-                    verticalSpaceMedium,
+                    verticalSpaceSmall,
                     CustomListTile(
                       text1: 'Period length',
                       text2: model.user.averageNumberOfDays.toString(),
+                      onTap: () => model.changePeriodDays(context),
                     ),
                     const Divider(height: 40),
-                    const CustomListTile(
-                      text1: 'Shortest cycle',
-                      text2: '24 days',
+                    CustomListTile(
+                      text1: 'First day of last period',
+                      text2: selectedDateFormatter
+                          .format(model.user.lmp!.toDate()),
+                      onTap: () => model.changeLMP(context),
                     ),
                     const Divider(height: 40),
-                    const CustomListTile(
-                      text1: 'Longest cycle',
-                      text2: '32 days',
+                    CustomListTile(
+                      text1: 'Average cycle length',
+                      text2: model.user.averageCycleLength.toString(),
+                      onTap: () => model.changeCycleLength(context),
                     ),
                     const Divider(height: 40),
                     verticalSpaceLarge,

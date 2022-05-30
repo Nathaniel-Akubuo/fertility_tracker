@@ -4,6 +4,7 @@ import '../models/pregnancy_week_details.dart';
 
 final groupListDayFormat = DateFormat('yyyy-MM-dd');
 final groupSeparatorFormatter = DateFormat('d MMM yyyy');
+final selectedDateFormatter = DateFormat('MMM d,  yyyy');
 
 RegExp emailRegExp = RegExp(
     r"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?");

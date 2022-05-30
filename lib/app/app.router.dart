@@ -114,8 +114,14 @@ class StackedRouter extends RouterBase {
       );
     },
     PeriodDetailsView: (data) {
+      var args = data.getArgs<PeriodDetailsViewArguments>(nullOk: false);
       return CupertinoPageRoute<dynamic>(
-        builder: (context) => const PeriodDetailsView(),
+        builder: (context) => PeriodDetailsView(
+          key: args.key,
+          lmp: args.lmp,
+          averageCycleLength: args.averageCycleLength,
+          averageNumberOfDays: args.averageNumberOfDays,
+        ),
         settings: data,
       );
     },
@@ -131,4 +137,17 @@ class PregnancyDetailsArguments {
   final Key? key;
   final DateTime lmp;
   PregnancyDetailsArguments({this.key, required this.lmp});
+}
+
+/// PeriodDetailsView arguments holder class
+class PeriodDetailsViewArguments {
+  final Key? key;
+  final DateTime lmp;
+  final int averageCycleLength;
+  final int averageNumberOfDays;
+  PeriodDetailsViewArguments(
+      {this.key,
+      required this.lmp,
+      required this.averageCycleLength,
+      required this.averageNumberOfDays});
 }
