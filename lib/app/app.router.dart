@@ -75,7 +75,7 @@ class StackedRouter extends RouterBase {
     },
     BottomNavView: (data) {
       return CupertinoPageRoute<dynamic>(
-        builder: (context) => const BottomNavView(),
+        builder: (context) => BottomNavView(),
         settings: data,
       );
     },

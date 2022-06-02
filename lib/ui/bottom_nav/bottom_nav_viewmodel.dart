@@ -55,6 +55,12 @@ class BottomNavViewModel extends StreamViewModel<DocumentSnapshot<UserModel>> {
     );
   }
 
+  Future<void> updateUserMode({bool fertility = false}) async {
+    _users.doc(_uid).update({'userMode': fertility ? 'fertility' : 'pregnancy'});
+  }
+
+  String get firstName => user.name?.split(' ').first ?? '';
+
   String get _uid => _auth.currentUser!.uid;
 
   UserModel get user => _data();

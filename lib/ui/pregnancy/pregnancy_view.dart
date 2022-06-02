@@ -29,7 +29,7 @@ class PregnancyView extends StatelessWidget {
                           child: ClipPath(
                             clipper: CurveClipper(),
                             child: Image.asset(
-                              'assets/week${model.week()}.jpg',
+                              'assets/week${model.week}.jpg',
                               width: MediaQuery.of(context).size.width,
                             ),
                           ),
@@ -49,17 +49,35 @@ class PregnancyView extends StatelessWidget {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  verticalSpaceRegular,
-                                  IconButton(
-                                    padding: EdgeInsets.zero,
-                                    icon: const Icon(Icons.arrow_back_ios),
-                                    onPressed: () => model.setDate(),
+                                  Row(
+                                    children: [
+                                      Visibility(
+                                        visible: model.week != 1,
+                                        child: IconButton(
+                                          padding: EdgeInsets.zero,
+                                          icon:
+                                              const Icon(Icons.arrow_back_ios),
+                                          onPressed: () => model.setDate(forward: false),
+                                        ),
+                                      ),
+                                      const Spacer(),
+                                      Visibility(
+                                        visible:
+                                            model.week != model.currentWeek,
+                                        child: IconButton(
+                                          padding: EdgeInsets.zero,
+                                          icon: const Icon(
+                                              Icons.arrow_forward_ios),
+                                          onPressed: () => model.setDate(),
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                   verticalSpaceRegular,
                                   Row(
                                     children: [
                                       Text(
-                                        'Week ${model.week()}',
+                                        'Week ${model.week}',
                                         style: kSubtitleTextStyle.copyWith(
                                           fontWeight: FontWeight.bold,
                                           fontSize: 16,
@@ -137,6 +155,9 @@ class PregnancyView extends StatelessWidget {
                           ],
                         ),
                       ),
+                      verticalSpaceLarge,
+                      verticalSpaceLarge,
+                      verticalSpaceLarge,
                     ],
                   ),
                 ),

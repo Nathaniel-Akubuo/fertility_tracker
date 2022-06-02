@@ -16,20 +16,26 @@ class PregnancyViewModel extends StreamViewModel<DocumentSnapshot<UserModel>> {
   void stuff() {
     _navigationService.navigateTo(
       Routes.pregnancyDetails,
-      arguments: PregnancyDetailsArguments(lmp: user.lmp!.toDate()),
+      arguments: PregnancyDetailsArguments(
+        lmp: edited ? newLMP! : user.lmp!.toDate(),
+      ),
     );
   }
 
   bool edited = false;
   DateTime? newLMP;
 
-  int week() {
+  int get week => _week();
+
+  int get currentWeek => _currentWeek();
+
+  int _week() {
     if (edited) {
       final now = DateTime.now();
       if (newLMP == null) return 1;
       final difference = now.difference(newLMP!);
       var week = (difference.inDays / 7).floor();
-      if (week == 0) {
+      if (week < 1) {
         week = 1;
       } else if (week > 39) {
         week = 39;
@@ -40,7 +46,7 @@ class PregnancyViewModel extends StreamViewModel<DocumentSnapshot<UserModel>> {
       if (user.lmp == null) return 1;
       final difference = now.difference(user.lmp!.toDate());
       var week = (difference.inDays / 7).floor();
-      if (week == 0) {
+      if (week < 1) {
         week = 1;
       } else if (week > 39) {
         week = 39;
@@ -49,10 +55,26 @@ class PregnancyViewModel extends StreamViewModel<DocumentSnapshot<UserModel>> {
     }
   }
 
-  Future<void> setDate() async {
+  int _currentWeek() {
+    final now = DateTime.now();
+    if (user.lmp == null) return 1;
+    final difference = now.difference(user.lmp!.toDate());
+    var week = (difference.inDays / 7).floor();
+    if (week < 1) {
+      week = 1;
+    } else if (week > 39) {
+      week = 39;
+    }
+    return week;
+  }
+
+  Future<void> setDate({bool forward = true}) async {
     edited = true;
+    var sevenDays = const Duration(days: 7);
     var baseDate = newLMP ?? user.lmp!.toDate();
-    newLMP = baseDate.add(const Duration(days: 7));
+    newLMP = forward
+        ? baseDate.subtract(sevenDays)
+        : baseDate.add(const Duration(days: 7));
     notifyListeners();
   }
 
@@ -80,7 +102,7 @@ class PregnancyViewModel extends StreamViewModel<DocumentSnapshot<UserModel>> {
   UserModel get user => _data();
 
   String trimester() {
-    var value = week();
+    var value = _week();
     if (value > 0 && value <= 13) {
       return '1st';
     } else if (value >= 14 && value <= 27) {
